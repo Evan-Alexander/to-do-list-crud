@@ -157,15 +157,15 @@
             $id = 1;
             $test_category = new Category($name, $id);
             $test_category->save();
+            $status = 0;
 
             $description = "File reports";
             $id2 = 2;
-            $test_task = new Task($description, $id2);
+            $test_task = new Task($description, $id2, $status);
             $test_task->save();
 
             //Act
             $test_category->addTask($test_task);
-
             //Assert
             $this->assertEquals($test_category->getTasks(), [$test_task]);
         }
@@ -179,12 +179,14 @@
 
             $description = "Wash dog";
             $id2 = 2;
-            $test_task = new Task($description, $id2);
+            $status = 0;
+
+            $test_task = new Task($description, $id2, $status);
             $test_task->save();
 
             $description2 = "Take out the trash";
             $id3 = 3;
-            $test_task2 = new Task($description2, $id3);
+            $test_task2 = new Task($description2, $id3, $status);
             $test_task2->save();
 
             //Act
@@ -201,10 +203,11 @@
             $id = 1;
             $test_category = new Category($name, $id);
             $test_category->save();
+            $status = 0;
 
             $description = "Wash dog";
             $id2 = 2;
-            $test_task = new Task($description, $id2);
+            $test_task = new Task($description, $id2, $status);
             $test_task->save();
 
             //Act

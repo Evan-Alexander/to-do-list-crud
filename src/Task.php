@@ -17,6 +17,10 @@
         {
             $this->description = (string) $new_description;
         }
+        function setStatus($new_status)
+        {
+            $this->status = (bool) $new_status;
+        }
 
         function getDescription()
         {
@@ -28,14 +32,20 @@
             return $this->id;
         }
 
+        function getStatus()
+        {
+            return $this->status;
+        }
+
         static function getAll()
         {
           $returned_tasks = $GLOBALS['DB']->query("SELECT * FROM tasks;");
           $tasks = array();
           foreach($returned_tasks as $task) {
             $description = $task['description'];
+            $status = (bool)$task['status'];
             $id = $task['id'];
-            $new_task = new Task($description, $id);
+            $new_task = new Task($description, $id, $status);
             array_push($tasks, $new_task);
           }
           return $tasks;
@@ -56,7 +66,7 @@
 
         function save()
         {
-            $GLOBALS['DB']->exec("INSERT INTO tasks (description) VALUES ('{$this->getDescription()}')");
+            $GLOBALS['DB']->exec("INSERT INTO tasks (description, status) VALUES ('{$this->getDescription()}', {$this->getStatus()});");
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 

@@ -94,7 +94,8 @@
 
                 $description = $returned_task[0]['description'];
                 $id = $returned_task[0]['id'];
-                $new_task = new Task($description, $id);
+                $status = (bool)$returned_task[0]['status'];
+                $new_task = new Task($description, $id, $status);
                 array_push($tasks, $new_task);
             }
             return $tasks;
