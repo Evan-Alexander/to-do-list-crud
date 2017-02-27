@@ -3,11 +3,14 @@
     {
         private $description;
         private $id;
+        private $status;
 
-        function __construct($description, $id = null)
+
+        function __construct($description, $id = null, $status = false)
         {
             $this->description = $description;
             $this->id = $id;
+            $this->status = $status;
         }
 
         function setDescription($new_description)
@@ -74,7 +77,7 @@
             $GLOBALS['DB']->exec("DELETE FROM tasks WHERE id = {$this->getId()};");
             $GLOBALS['DB']->exec("DELETE FROM categories_tasks WHERE task_id = {$this->getId()};");
         }
-        
+
         function addCategory($category)
         {
             $GLOBALS['DB']->exec("INSERT INTO categories_tasks (category_id, task_id) VALUES ({$category->getId()}, {$this->getId()});");
